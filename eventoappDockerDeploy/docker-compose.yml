@@ -1,0 +1,29 @@
+version: '3.1'
+services:
+  eventoapp:
+    image: eventoapp
+    ports:
+      - "8080:8080"
+    environment:
+      - DATABASE_HOST=mysqldb
+      - DATABASE_USER=root
+      - DATABASE_PASSWORD=root
+      - DATABASE_NAME=eventosapp
+      - DATABASE_PORT=3306
+    depends_on:
+      - mysqldb
+
+  mysqldb:
+    image: mysql
+    container_name: mysqldb
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=eventosapp
+    ports:
+      - "3306:3306"
+    volumes:
+      - eventosapp_data:/var/lib/mysql
+
+volumes:
+  eventosapp_data:
+
